@@ -34,6 +34,10 @@ const eventSchema = new mongoose.Schema({
         required:true,
         min:0
      },
+     image:{
+        type:String,
+        required:true
+     },
 
      createdBy:{
         type:mongoose.Schema.Types.ObjectId,

@@ -14,6 +14,13 @@ exports.createBooking = async (req, res) => {
             })
         }
 
+        if (req.user.role !== "user") {
+            return res.status(403).json({
+                success: false,
+                message: "Only users can create bookings"
+            })
+        }
+
         if (numberOfSeats <= 0) {
             return res.status(400).json({
                 success: false,
@@ -83,79 +90,79 @@ exports.getUserBooking = async (req, res) => {
 
 exports.getAllBookings = async (req, res) => {
     try {
-         const bookings=await Booking.find()
-         .populate('user','name email')
-         .populate('event','title date venue')
-         .sort({ createdAt:-1 })
-         res.status(200).json({
-            success:true,
-             count: booking.length,
-            data:bookings
-         })
+        const bookings = await Booking.find()
+            .populate('user', 'name email')
+            .populate('event', 'title date venue')
+            .sort({ createdAt: -1 })
+        res.status(200).json({
+            success: true,
+            count: booking.length,
+            data: bookings
+        })
     } catch (error) {
         console.log(error);
         res.status(error.status || 500).json({ error: error.message || "Internal server error" })
     }
 }
-exports.getOneBooking=async(req,res)=>{
+exports.getOneBooking = async (req, res) => {
     try {
-       const  id=req.params.id;
-       
-       const booking= await Booking.findById(id)
-       .populate('user','name email')
-       .populate('event','title date venue price')
+        const id = req.params.id;
 
-       if(!booking){
-        return res.status(404).json({
-            success:false,
-            message:"Booking not found"
-        })
-       }
+        const booking = await Booking.findById(id)
+            .populate('user', 'name email')
+            .populate('event', 'title date venue price')
 
-       if(
-        booking.user._id.toString()!== req.user.id &&
-        req.user.role !=="admin"
-       ){
-        return res.status(403).json({
-            success:false,
-            message:"Access denied"
+        if (!booking) {
+            return res.status(404).json({
+                success: false,
+                message: "Booking not found"
+            })
+        }
+
+        if (
+            booking.user._id.toString() !== req.user.id &&
+            req.user.role !== "admin"
+        ) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            data: booking
         })
-       }
-       res.status(200).json({
-        success:true,
-        data:booking
-       })
     } catch (error) {
-          console.log(error);
+        console.log(error);
         res.status(error.status || 500).json({ error: error.message || "Internal server error" })
     }
 }
 
-exports.cancelBooking=async(req,res)=>{
+exports.cancelBooking = async (req, res) => {
     try {
-        const bookingId =req.params.id
+        const bookingId = req.params.id
         const booking = await Booking.findById(bookingId)
-        if(!booking){
+        if (!booking) {
             return res.status(404).json({
-                success:false,
-                message:"Booking not found"
+                success: false,
+                message: "Booking not found"
             })
         }
 
-        if(
-            booking.user.toString() !==req.user.id &&
+        if (
+            booking.user.toString() !== req.user.id &&
             req.user.role !== "admin"
-        ){
+        ) {
             return res.status(403).json({
-                success:false,
-                message:"Access denied"
+                success: false,
+                message: "Access denied"
             })
         }
 
-        if(booking.bookingStatus === "cancelled"){
+        if (booking.bookingStatus === "cancelled") {
             return res.status(400).json({
-                success:false,
-                message:"Booking already cancelled"
+                success: false,
+                message: "Booking already cancelled"
             })
         }
 
@@ -168,11 +175,11 @@ exports.cancelBooking=async(req,res)=>{
         await booking.save()
 
         res.status(200).json({
-            success:true,
-            message:"Booking cancelled successfully"
+            success: true,
+            message: "Booking cancelled successfully"
         })
     } catch (error) {
-                console.log(error);
+        console.log(error);
         res.status(error.status || 500).json({ error: error.message || "Internal server error" })
     }
 }

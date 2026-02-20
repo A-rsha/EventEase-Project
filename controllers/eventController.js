@@ -2,16 +2,19 @@ const Event = require('../models/Event')
 
 exports.createEvent=async(req,res)=>{
     try {
-        const {title,description,date,venue,price,totalSeats,availableSeats}=req.body
-        if(!title || !description || !date || !venue || !price || !totalSeats ||!availableSeats){
+        const {title,description,date,venue,price,totalSeats}=req.body
+        if(!title || !description || !date || !venue || !price || !totalSeats){
             return res.status(400).json({
             success:false,
             message:"All fields are required"
             })
         }
+         if(!req.file){
+            return res.status(400).json({message:"Image is required"})
+         }
 
         const newEvent=new Event({
-            title,description,date,venue,price,totalSeats,availableSeats,createdBy:req.user.id
+            title,description,date,venue,price,totalSeats,availableSeats:totalSeats,image:req.file.filename,createdBy:req.user.id
         })
         const savedEvent = await newEvent.save()
        return res.status(201).json({
