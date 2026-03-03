@@ -1,8 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FiUser, FiMail, FiLock } from "react-icons/fi";
+import API from "../services/axios"
 
 function Register() {
+const navigate = useNavigate();
+
+const [formData,setFormData]=useState({
+  name:"",
+  email:"",
+  password:"",
+})
+const handleChange =(e)=>{
+  setFormData({
+    ...formData,
+    [e.target.name]:e.target.value,
+  })
+}
+
+
+const handleSubmit =async()=>{
+  try {
+    await API.post("/auth/register",formData);
+    alert("Registered successfully");
+    navigate('/login')
+  } catch (error) {
+    alert("Registration failed")
+  }
+}
   return (
     <div className="min-h-screen flex items-center justify-center 
     bg-linear-to-br from-purple-900 via-pink-900 to-purple-400 px-6">
@@ -20,7 +45,9 @@ function Register() {
           <FiUser />
           <input
             type="text"
+            name="name"
             placeholder="Full Name"
+            onChange={handleChange}
             className="bg-transparent outline-none w-full placeholder-white/70"
           />
         </div>
@@ -30,6 +57,8 @@ function Register() {
           <FiMail />
           <input
             type="email"
+            name="email"
+            onChange={handleChange}
             placeholder="Email Address"
             className="bg-transparent outline-none w-full placeholder-white/70"
           />
@@ -41,6 +70,8 @@ function Register() {
           <FiLock />
           <input
             type="password"
+            name="password"
+            onChange={handleChange}
             placeholder="Password"
             className="bg-transparent outline-none w-full placeholder-white/70"
           />
@@ -49,7 +80,7 @@ function Register() {
       
 
         <button className="w-full bg-purple-800 hover:bg-purple-900 
-        transition py-4 mt-4 rounded-2xl font-semibold ">
+        transition py-4 mt-4 rounded-2xl font-semibold " onClick={handleSubmit}>
           Create Account
         </button>
 

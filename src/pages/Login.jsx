@@ -1,8 +1,40 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiMail, FiLock } from "react-icons/fi";
+import { useState } from "react";
+import API from "../services/axios";
 
 function Login() {
+const navigate =useNavigate();
+
+const [formData,setFormData]=useState({
+  email:"",
+  password:""
+})
+
+const handleChange =(e)=>{
+  setFormData({
+    ...formData,
+    [e.target.name]:e.target.value,
+  })
+}
+
+const handleSubmit = async ()=>{
+  try {
+    const res=await API.post('/auth/login',formData);
+
+    localStorage.setItem("token",res.data.token);
+    localStorage.setItem("role",res.data.user.role);
+
+    if(res.data.user.role === "admin"){
+      navigate("/admin");
+    }else{
+      navigate("/")
+    }
+  } catch (error) {
+     alert("Invalid Email or Password");
+  }
+}
   return (
     <div className="min-h-screen flex items-center justify-center 
     bg-linear-to-br from-purple-900 via-pink-900 to-purple-400 px-6">
@@ -20,6 +52,8 @@ function Login() {
           <FiMail />
           <input
             type="email"
+            name="email"
+            onChange={handleChange}
             placeholder="Email Address"
             className="bg-transparent outline-none w-full placeholder-white/70"
           />
@@ -31,13 +65,15 @@ function Login() {
           <FiLock />
           <input
             type="password"
+            name="password"
+            onChange={handleChange}
             placeholder="Password"
             className="bg-transparent outline-none w-full placeholder-white/70"
           />
         </div>
 
         <button className="w-full bg-purple-800 hover:bg-purple-900 
-        transition py-3 rounded-xl font-semibold">
+        transition py-3 rounded-xl font-semibold" onClick={handleSubmit}>
           Login
         </button>
 
