@@ -9,19 +9,17 @@ function FeatureSection({ searchText, location, category }) {
   const [events, setEvents] = useState([]);
   const [now, setNow] = useState(new Date());
 
-  // Timer to update countdowns every second
+
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Fetch all events from backend
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const res = await API.get("/events/getEvents");
 
-        // Sort events by date
         const sortedEvents = res.data.data.sort(
           (a, b) => new Date(a.date) - new Date(b.date)
         );
@@ -35,7 +33,6 @@ function FeatureSection({ searchText, location, category }) {
     fetchEvents();
   }, []);
 
-  // Filtering based on search/location/category
   useEffect(() => {
     let filtered = [...allEvents];
     if (searchText) {
@@ -54,7 +51,7 @@ function FeatureSection({ searchText, location, category }) {
     setEvents(filtered);
   }, [searchText, location, category, allEvents]);
 
-  // Count events per category
+  
   const categoryCounts = useMemo(() => {
     const counts = {};
     allEvents.forEach((event) => {
@@ -63,7 +60,6 @@ function FeatureSection({ searchText, location, category }) {
     return counts;
   }, [allEvents]);
 
-  // Highlight search text in event titles
   const highlightText = (text) => {
     if (!searchText) return text;
     const regex = new RegExp(`(${searchText})`, "gi");
@@ -78,7 +74,6 @@ function FeatureSection({ searchText, location, category }) {
     );
   };
 
-  // Countdown for upcoming events
   const getCountdown = (eventDate) => {
     const diff = new Date(eventDate) - now;
     if (diff <= 0) return null;
@@ -88,7 +83,7 @@ function FeatureSection({ searchText, location, category }) {
     return `${days}d ${hours}h ${minutes}m`;
   };
 
-  // Format time exactly like ManageEvents (from backend time field)
+  
   const formatTime = (timeString) => {
     if (!timeString) return "";
     const [hour, minute] = timeString.split(":");
@@ -123,7 +118,7 @@ function FeatureSection({ searchText, location, category }) {
                 year: "numeric",
               });
 
-              const formattedTime = formatTime(event.time); // <-- Correct time
+              const formattedTime = formatTime(event.time); 
 
               const isExpired = dateObj < now;
               const countdown = getCountdown(event.date);
