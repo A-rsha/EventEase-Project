@@ -263,6 +263,7 @@ function Navbar() {
             <button
               onClick={() => {
                 localStorage.removeItem("token");
+                 localStorage.removeItem("role")
                 window.location.href = "/login";
               }}
               className="w-full bg-red-500/30 hover:bg-red-500/50 p-3 rounded-xl mt-8 transition"
