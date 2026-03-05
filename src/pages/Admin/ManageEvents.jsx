@@ -66,8 +66,7 @@ function ManageEvents() {
               className='bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 flex flex-col'
             >
               {event.image && (
-                <img
-                  src={`http://localhost:4003/${event.image}`}
+                <img src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
                   alt={event.title}
                   className="w-full h-44 object-cover"
                 />
