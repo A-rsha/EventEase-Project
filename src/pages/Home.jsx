@@ -13,7 +13,7 @@ function Home() {
 
   return (
     <>
-      <section className="pt-28 px-6 pb-12 overflow-x-auto min-h-screen">
+      <section className="pt-28 px-6 pb-60 overflow-x-auto min-h-screen">
         <div className="max-w-7xl mx-auto">
 
           <p className="text-fuchsia-800 italic text-lg mb-4 trackin-wide">
