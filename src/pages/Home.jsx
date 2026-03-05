@@ -20,12 +20,12 @@ function Home() {
             Find Your Next Experience
           </p>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold leading-tight bg-linear-to-r from-pink-400 to-purple-300 bg-clip-text text-transparent">
-            Discover & Promote <br /> Upcoming Event
-          </h1>
+          <h1 className="max-w-5xl text-6xl sm:text-7xl md:text-8xl lg:text-[110px] font-extrabold leading-[1.05] tracking-tight bg-gradient-to-r from-pink-400 to-purple-300 bg-clip-text text-transparent">
+  Discover & Promote <br className="hidden md:block" /> Upcoming Events
+</h1>
 
           <div className="mt-12 bg-white/10 backdrop-blur-md border border-white/30 
-          rounded-2xl p-5 flex flex-row items-center gap-6 w-full">
+          rounded-2xl p-5 flex flex-col md:flex-row md:items-center gap-4 w-full">
 
             <div className="flex items-center gap-2 flex-1">
               <FiSearch className="text-white text-lg" />
@@ -38,9 +38,9 @@ function Home() {
               />
             </div>
 
-            <div className="h-6 w-px bg-white/30"></div>
+            <div className="hidden md:block h-6 w-px bg-white/30"></div>
 
-         
+
             <div className="flex items-center gap-2 flex-1">
               <FiMapPin className="text-white text-lg" />
               <input
@@ -71,7 +71,7 @@ function Home() {
               </select>
             </div>
             <button
-              className="bg-purple-800 hover:bg-purple-900 text-white p-3 rounded-full transition"
+              className="bg-purple-800 hover:bg-purple-900 text-white p-3 rounded-xl  md:rounded-full transition"
             >
               <FiSearch />
             </button>

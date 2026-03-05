@@ -12,7 +12,7 @@ function AdminSidebar() {
   ];
 
   return (
-    <div className="h-screen w-64 bg-pink-100 text-white p-6 fixed">
+    <div className="w-full md:w-64 bg-pink-100 text-white p-6 ">
       <h2 className="text-2xl font-bold mb-10 text-black">
         EventEase Admin
       </h2>

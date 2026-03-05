@@ -8,7 +8,6 @@ function AdminDashboard() {
   const [payments, setPayments] = useState([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
 
-
   const fetchEvents = async () => {
     try {
       const res = await API.get("/events/getEvents");
@@ -18,7 +17,6 @@ function AdminDashboard() {
     }
   };
 
-
   const fetchBookings = async () => {
     try {
       const res = await API.get("/bookings/getAllBookings");
@@ -27,7 +25,6 @@ function AdminDashboard() {
       console.error("Error fetching Bookings", error);
     }
   };
-
 
   const fetchPayments = async () => {
     try {
@@ -53,37 +50,39 @@ function AdminDashboard() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8 m-6">
+    <div className="p-4 md:p-8">
 
+     
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <div className="bg-white text-black rounded-2xl shadow-md p-6 hover:shadow-xl transition">
-        <FaCalendarAlt className="text-purple-500 text-3xl mb-3" />
-        <p className="text-sm uppercase text-gray-600">Total Events</p>
-        <h1 className="text-4xl font-bold">{events.length}</h1>
+        <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition">
+          <FaCalendarAlt className="text-purple-500 text-3xl mb-3" />
+          <p className="text-sm uppercase text-gray-600">Total Events</p>
+          <h1 className="text-3xl md:text-4xl font-bold">{events.length}</h1>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition">
+          <FaTicketAlt className="text-purple-500 text-3xl mb-3" />
+          <p className="text-sm uppercase text-gray-600">Total Bookings</p>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            {bookings.filter(b => b.bookingStatus === "confirmed").length}
+          </h1>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition">
+          <div className="text-3xl mb-3 text-green-600">💰</div>
+          <p className="text-sm uppercase text-gray-600">Total Revenue</p>
+          <h1 className="text-3xl md:text-4xl font-bold text-green-600">
+            ₹ {totalRevenue.toLocaleString()}
+          </h1>
+        </div>
       </div>
 
 
-      <div className="bg-white text-black rounded-2xl shadow-md p-6 hover:shadow-xl transition">
-        <FaTicketAlt className="text-purple-500 text-3xl mb-3" />
-        <p className="text-sm uppercase text-gray-600">Total Bookings</p>
-        <h1 className="text-4xl font-bold">
-          {bookings.filter(b => b.bookingStatus === "confirmed").length}
-        </h1>
-      </div>
+    
+      <div className="bg-white rounded-2xl shadow-md p-4 md:p-6 mt-8">
 
-
-      <div className="bg-white text-black rounded-2xl shadow-md p-6 hover:shadow-xl transition">
-        <div className="text-3xl mb-3 text-green-600">💰</div>
-        <p className="text-sm uppercase text-gray-600">Total Revenue</p>
-        <h1 className="text-4xl font-bold text-green-600">
-          ₹ {totalRevenue.toLocaleString()}
-        </h1>
-      </div>
-
-
-      <div className="col-span-1 md:col-span-2 lg:col-span-3 bg-white rounded-2xl shadow-md p-6 mt-6">
-
-        <h2 className="text-xl font-bold text-gray-800 mb-4">
+        <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-4">
           Recent Bookings
         </h2>
 
@@ -92,10 +91,13 @@ function AdminDashboard() {
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .slice(0, 5)
           .map((booking) => (
+
             <div
               key={booking._id}
-              className="flex justify-between items-center border-b py-3"
+              className="border-b py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3"
             >
+
+           
               <div>
                 <h4 className="font-semibold text-gray-800">
                   {booking.user?.name || "User"}
@@ -105,6 +107,7 @@ function AdminDashboard() {
                 </p>
               </div>
 
+         
               <div className="text-sm text-gray-600">
                 Seats: {booking.numberOfSeats}
               </div>
@@ -113,8 +116,10 @@ function AdminDashboard() {
                 ₹ {booking.totalAmount}
               </div>
 
+              
               <span
-                className={`px-3 py-1 rounded-full text-xs font-semibold ${booking.bookingStatus === "confirmed"
+                className={`self-start md:self-auto px-3 py-1 rounded-full text-xs font-semibold 
+                ${booking.bookingStatus === "confirmed"
                     ? "bg-green-100 text-green-700"
                     : booking.bookingStatus === "cancelled"
                       ? "bg-red-100 text-red-600"
@@ -123,6 +128,7 @@ function AdminDashboard() {
               >
                 {booking.bookingStatus}
               </span>
+
             </div>
           ))}
       </div>

@@ -3,9 +3,9 @@ import { Outlet } from 'react-router-dom'
 import AdminSidebar from '../components/AdminSidebar'
 function DashboardLayout() {
   return (
-    <div className='flex min-h-screen bg-fuchsia-200'>
+    <div className='flex flex-col md:flex-row min-h-screen bg-fuchsia-200'>
        
-        <div className='w-64 bg-pink-100 shadow-md'>
+        <div className='w-full md:w-64 bg-pink-100 shadow-md'>
            <AdminSidebar/>
         </div>
              

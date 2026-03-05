@@ -15,6 +15,7 @@ import EventDetails from './pages/EventDetails'
 import Payments from './pages/Payments'
 import Bookings from './pages/Admin/Bookings'
 import Ticket from './pages/Ticket'
+import About from './pages/About'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
                   <Route path='/events/:id' element={<EventDetails/>}/>
                   <Route path='/payments/:id' element={<Payments/>}/>
                   <Route path='/ticket/:id' element={<Ticket/>}/>
+                  <Route path='/about' element={<About/>}/>
           
        </Route>
 

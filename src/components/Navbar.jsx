@@ -110,11 +110,11 @@ function Navbar() {
 
 
       {open && (
-        <div className="md:hidden absolute top-20 left-0 w-full  backdrop-blur-md py-6 shadow-lg">
-          <div className="  no-underline! flex flex-col items-center gap-6 font-semibold">
-            <Link onClick={() => setOpen(false)} to="/">HOME</Link>
-            <Link onClick={() => setOpen(false)} to="/events">EVENTS</Link>
-            <Link onClick={() => setOpen(false)} to="/about">ABOUT</Link>
+        <div className="md:hidden absolute top-20 left-0 w-full  backdrop-blur-md py-6 shadow-lg z-50">
+          <div className="  flex flex-col items-center gap-6 font-semibold">
+            <Link className="no-underline! text-white hover:text-pink-400" onClick={() => setOpen(false)} to="/">HOME</Link>
+            <Link className="no-underline! text-white hover:text-pink-400" onClick={() => setOpen(false)} to="/events">EVENTS</Link>
+            <Link className="no-underline! text-white hover:text-pink-400" onClick={() => setOpen(false)} to="/about">ABOUT</Link>
           </div>
         </div>
       )}
