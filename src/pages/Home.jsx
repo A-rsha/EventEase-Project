@@ -20,7 +20,7 @@ function Home() {
             Find Your Next Experience
           </p>
 
-          <h1 className="max-w-5xl text-6xl sm:text-7xl md:text-8xl lg:text-[110px] font-extrabold leading-[1.05] tracking-tight bg-gradient-to-r from-pink-400 to-purple-300 bg-clip-text text-transparent">
+          <h1 className="max-w-5xl text-6xl sm:text-7xl md:text-8xl lg:text-[110px] font-extrabold leading-[1.05] tracking-tight bg-linear-to-r from-pink-400 to-purple-300 bg-clip-text text-transparent">
   Discover & Promote <br className="hidden md:block" /> Upcoming Events
 </h1>
 

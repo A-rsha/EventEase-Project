@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import API from "../../services/axios"
 
-// Helper function to format time to 12-hour with AM/PM
 const formatTime = (timeStr) => {
   if (!timeStr) return "";
   const [hours, minutes] = timeStr.split(":").map(Number);
@@ -74,7 +73,7 @@ function ManageEvents() {
                 />
               )}
 
-              <div className='p-4 space-y-2 flex-grow'>
+              <div className='p-4 space-y-2 grow'>
                 <h3 className='text-lg md:text-xl font-semibold'>
                   {event.title}
                 </h3>
