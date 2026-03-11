@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../services/axios";
-import { QRCodeCanvas } from "qrcode.react";
+
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
@@ -129,9 +129,7 @@ function Ticket() {
           </p>
         )}
 
-        <div className="flex justify-center mt-4">
-          <QRCodeCanvas value={booking._id} size={120} />
-        </div>
+       
 
         <p className="text-sm text-gray-300 mt-2">
           Booking ID: {booking._id}

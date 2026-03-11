@@ -16,6 +16,7 @@ import Payments from './pages/Payments'
 import Bookings from './pages/Admin/Bookings'
 import Ticket from './pages/Ticket'
 import About from './pages/About'
+import Users from './pages/Admin/Users'
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path='create-Event' element={<CreateEvent />} />
           <Route path='manage-events' element={<ManageEvents />} />
           <Route path='bookings' element={<Bookings/>}/>
+          <Route path='users' element={<Users/>}/>
 
         </Route>
       </Routes>

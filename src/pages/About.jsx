@@ -9,7 +9,7 @@ function About() {
 
             <section className="text-center py-20 px-6">
                 <h1 className="text-5xl md:text-6xl font-extrabold leading-tight">
-                    About <span className="bg-linear-to-r from-pink-400 to-purple-300 bg-clip-text text-transparent">
+                    About <span className="bg-fuchsia-400 bg-clip-text text-transparent">
                         EventEase
                     </span>
                 </h1>
@@ -32,10 +32,10 @@ function About() {
 
                 <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-8">
                     <ul className="space-y-4 text-white/80">
-                        <li>✔ Easy Event Creation</li>
-                        <li>✔ Secure Ticket Booking</li>
-                        <li>✔ Real-Time Seat Availability</li>
-                        <li>✔ Smart Payment Tracking</li>
+                        <li>Easy Event Creation</li>
+                        <li>Secure Ticket Booking</li>
+                        <li>Real-Time Seat Availability</li>
+                        <li> Smart Payment Tracking</li>
                     </ul>
                 </div>
             </section>

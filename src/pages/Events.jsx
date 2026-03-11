@@ -6,16 +6,22 @@ function Events() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
-  const fetchEvents = async () => {
-    try {
-      const res = await API.get("/events/getEvents");
-      setEvents(res.data.data || []);
-    } catch (error) {
-      console.error("Error fetching Events", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const res = await API.get("/events/getEvents");
+        const now = new Date();
+
+        const upcoming = (res.data.data || []).filter(
+          (event) => new Date(event.date) >= now
+        );
+
+        setEvents(upcoming);
+      } catch (error) {
+        console.error("Error fetching events", error);
+      }
+    };
+
     fetchEvents();
   }, []);
 
@@ -29,62 +35,52 @@ function Events() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto min-h-screen">
+    <div className="p-4 max-w-6xl mx-auto min-h-screen ">
+
       {events.length === 0 ? (
-        <p className="text-white text-center text-lg">No events found</p>
+        <p className="text-white text-center text-lg mt-10">Loading...</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
           {events.map((event) => {
-            const dateObj = new Date(event.date);
-            const formattedDate = dateObj.toLocaleDateString("en-IN", {
+            const eventDate = new Date(event.date);
+            const formattedDate = eventDate.toLocaleDateString("en-IN", {
               day: "numeric",
               month: "long",
               year: "numeric",
             });
-
             const formattedTime = formatTime(event.time);
 
             return (
               <div
                 key={event._id}
-                className="group relative flex flex-col h-full max-w-sm mx-auto 
-                           bg-white/20 backdrop-blur-lg rounded-2xl overflow-hidden 
-                           shadow-lg transition-all duration-300 
-                           hover:-translate-y-2 hover:shadow-2xl hover:scale-[1.02]"
+                className="bg-fuchsia-700 rounded-md overflow-hidden flex flex-col"
               >
-                <span className="absolute top-4 left-4 bg-purple-600 text-white text-xs px-3 py-1 rounded-full z-10">
+              
+                <span className="bg-fuchsia-900 text-white text-xs px-2 py-1 rounded absolute m-2">
                   {event.category}
                 </span>
 
+               
                 {event.image && (
-                  <img src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
+                  <img
+                    src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
                     alt={event.title}
-                    className="w-full h-44 object-cover transition duration-500 group-hover:scale-110"
+                    className="w-full h-40 object-cover"
                   />
                 )}
 
-                <div className="flex flex-col grow p-5 text-white space-y-3">
-                  <h3 className="text-lg font-bold tracking-wide">{event.title}</h3>
-
-                  <p className="text-sm text-gray-200 line-clamp-2">
-                    {event.description}
-                  </p>
-
-                  <div className="text-sm space-y-1 text-gray-100">
-                    <p>📅 {formattedDate} • {formattedTime}</p>
-                    <p>📍 {event.venue}</p>
-                  </div>
-
-                  <p className="text-lg font-semibold text-pink-300 pt-2">
-                    ₹{event.price}
-                  </p>
+               
+                <div className="flex flex-col p-4 grow text-white space-y-2">
+                  <h3 className="text-lg font-semibold">{event.title}</h3>
+                  <p className="text-sm text-gray-200 line-clamp-2">{event.description}</p>
+                  <p className="text-sm text-gray-100">📅 {formattedDate} • {formattedTime}</p>
+                  <p className="text-sm text-gray-100">📍 {event.venue}</p>
+                  <p className="text-base font-bold mt-2">₹{event.price}</p>
 
                   <button
-                    className="mt-auto w-full py-3 rounded-xl font-semibold 
-                               bg-linear-to-r from-purple-600 to-pink-500 
-                               hover:from-pink-500 hover:to-purple-600 
-                               transition duration-300"
                     onClick={() => navigate(`/events/${event._id}`)}
+                    className="mt-auto bg-fuchsia-950 py-2 rounded text-white font-medium  transition-colors"
                   >
                     View Details
                   </button>
@@ -92,6 +88,7 @@ function Events() {
               </div>
             );
           })}
+
         </div>
       )}
     </div>

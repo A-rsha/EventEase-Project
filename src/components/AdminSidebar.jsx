@@ -8,7 +8,8 @@ function AdminSidebar() {
     { name: "Over View", path: "/admin/dashboard" },
     { name: "Create Events", path: "/admin/create-Event" },
     { name: "Manage Events", path: "/admin/manage-events" },
-    {name: "All Bookings" ,path:"/admin/bookings"}
+    {name: "All Bookings" ,path:"/admin/bookings"},
+    {name: "All Users" ,path:"/admin/Users"}
   ];
 
   return (

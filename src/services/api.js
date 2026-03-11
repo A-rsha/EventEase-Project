@@ -2,6 +2,7 @@ import API from './axios'
 
 export const register =(data)=>API.post('api/auth,data')
 export const login=(data)=>API.post('api/auth,data')
+export const updateStatus=(data)=>API.put(`/auth/updateStatus/${id}`,data)
 export const getprofile=(data)=>API.get('/auth/profile')
 
 export const postEvent=(data)=>

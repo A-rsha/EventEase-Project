@@ -30,7 +30,7 @@ const handleSubmit =async()=>{
 }
   return (
     <div className="min-h-screen flex items-center justify-center 
-    bg-linear-to-br from-purple-900 via-pink-900 to-purple-400 px-6">
+bg-fuchsia-950">
 
       <div className="w-full max-w-md bg-white/10 backdrop-blur-lg 
       border border-white/30 rounded-3xl p-8 shadow-2xl text-white">
