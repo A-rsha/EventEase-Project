@@ -36,6 +36,7 @@ function FeatureSection({ searchText, location, category }) {
 
     return true;
   });
+  
 
   function formatTime(time) {
     if (!time) return "";
@@ -47,16 +48,16 @@ function FeatureSection({ searchText, location, category }) {
   }
 
   return (
-    <section className="pt-2 pb-16 px-4 md:px-8">
+    <section className="pt-1 pb-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-40">
+        <h1 className="text-3xl md:text-4xl font-bold text-white mt-10">
           Upcoming Events
         </h1>
         <p className="text-gray-200 mb-6">{upcomingEvents.length} Events Found</p>
 
         {upcomingEvents.length === 0 ? (
           <div className="text-center text-white py-16">
-            <h2 className="text-xl font-semibold mb-2">No events found 😔</h2>
+            <h2 className="text-xl font-semibold mb-2">Loading Events..</h2>
             <p className="text-gray-300">Try changing your filters.</p>
           </div>
         ) : (
@@ -67,7 +68,7 @@ function FeatureSection({ searchText, location, category }) {
               return (
                 <div
                   key={event._id}
-                  className="group min-w-70 md:min-w-0 lg:min-w-[320px] w-full bg-red-50 rounded-2xl overflow-hidden shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col"
+                  className="group min-w-70 md:min-w-0 lg:min-w-[320px] w-full bg-fuchsia-800 rounded-2xl overflow-hidden shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col"
                 >
                   <div className="relative h-52 overflow-hidden">
                     {event.image && (
@@ -84,11 +85,11 @@ function FeatureSection({ searchText, location, category }) {
                   </div>
 
                   <div className="p-5 flex flex-col grow">
-                    <h3 className="text-lg md:text-xl font-semibold mb-3 text-black">
+                    <h3 className="text-lg md:text-xl font-semibold mb-3 text-white">
                       {event.title}
                     </h3>
 
-                    <div className="text-sm text-gray-600 mb-4 space-y-2">
+                    <div className="text-sm text-white mb-4 space-y-2">
                       <p>
                         📅 {eventDate.toLocaleDateString("en-IN")} • {formatTime(event.time)}
                       </p>
@@ -102,7 +103,7 @@ function FeatureSection({ searchText, location, category }) {
                       >
                         Get Ticket
                       </button>
-                      <span className="text-pink-600 font-semibold whitespace-nowrap">
+                      <span className="text-white font-semibold whitespace-nowrap">
                         ₹{event.price}
                       </span>
                     </div>
