@@ -40,11 +40,11 @@ function EventDetails() {
     return `${hour % 12 || 12}:${m} ${ampm}`;
   };
 
-  if (!event) return <p className="text-white text-center mt-20">Loading...</p>;
+  if (!event) return <p className="text-black text-center mt-20">Loading...</p>;
 
   return (
     <div className="min-h-screen p-4">
-      <div className="max-w-4xl mx-auto bg-fuchsia-950 text-white rounded-lg overflow-hidden">
+      <div className="max-w-4xl mx-auto bg-white text-black shadow-2xl rounded-lg overflow-hidden">
         
         <div className="md:flex flex-col md:flex-row">
           {event.image && (
@@ -54,7 +54,7 @@ function EventDetails() {
                 alt={event.title}
                 className="w-full h-full object-cover"
               />
-              <span className="absolute top-2 left-2 bg-purple-900 px-2 py-1 text-xs rounded">
+              <span className="absolute top-2 left-2 bg-black px-2 py-1 text-xs rounded">
                 {event.category}
               </span>
             </div>
@@ -63,17 +63,17 @@ function EventDetails() {
           <div className="md:w-1/2 p-4 flex flex-col justify-between space-y-4">
             <div>
               <h2 className="text-2xl font-bold">{event.title}</h2>
-              <p className="text-gray-200">{event.description}</p>
-              <p className="text-gray-200">
+              <p className="text-black">{event.description}</p>
+              <p className="text-black">
                 📅 {new Date(event.date).toLocaleDateString()} | {formatTime(event.time)}
               </p>
-              <p className="text-gray-200">📍 {event.venue}</p>
+              <p className="text-black">📍 {event.venue}</p>
 
               <div className="mt-2">
                 <p>Seats Left: {event.availableSeats} / {event.totalSeats}</p>
-                <div className="bg-purple-800 h-2 rounded mt-1">
+                <div className="bg-black h-2 rounded mt-1">
                   <div
-                    className="bg-purple-400 h-2 rounded"
+                    className="bg-black h-2 rounded"
                     style={{ width: `${(event.availableSeats / event.totalSeats) * 100}%` }}
                   ></div>
                 </div>
@@ -85,14 +85,14 @@ function EventDetails() {
             <div className="flex items-center gap-2 mt-2">
               <button
                 onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-                className="bg-purple-800 px-2 py-1 rounded"
+                className="bg-black text-white px-2 py-1 rounded"
               >
                 -
               </button>
               <span>{quantity}</span>
               <button
                 onClick={() => quantity < event.availableSeats && setQuantity(quantity + 1)}
-                className="bg-purple-800 px-2 py-1 rounded"
+                className="bg-black text-white  px-2 py-1 rounded"
               >
                 +
               </button>
@@ -102,7 +102,7 @@ function EventDetails() {
 
             <button
               onClick={handleBooking}
-              className="bg-fuchsia-800 w-full py-2 rounded mt-2"
+              className="bg-black text-white w-full py-2 rounded mt-2"
             >
               Book Now
             </button>

@@ -81,14 +81,14 @@ function Ticket() {
 };
 
   if (!booking)
-    return <p className="text-white text-center mt-10">Loading...</p>;
+    return <p className="text-blakc text-center mt-10">Loading...</p>;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 text-white">
+    <div className="min-h-screen flex items-center justify-center p-6 text-black">
 
       <div
         id="ticket-content"
-        className="bg-white/10 backdrop-blur-lg p-8 rounded-3xl w-full max-w-md text-center space-y-4"
+        className="bg-white backdrop-blur-lg p-8 rounded-3xl w-full max-w-md text-center space-y-4"
       >
 
         <h2 className="text-2xl font-bold text-pink-400">
@@ -114,9 +114,9 @@ function Ticket() {
             {["days", "hours", "minutes", "seconds"].map((unit) => (
               <div
                 key={unit}
-                className="bg-white/10 p-3 rounded-xl text-center w-16"
+                className="bg-white p-3 rounded-xl text-center w-16"
               >
-                <p className="text-lg font-bold text-yellow-400">
+                <p className="text-lg font-bold text-black">
                   {timeLeft[unit]}
                 </p>
                 <p className="text-xs capitalize">{unit}</p>
@@ -131,14 +131,14 @@ function Ticket() {
 
        
 
-        <p className="text-sm text-gray-300 mt-2">
+        <p className="text-sm text-black mt-2">
           Booking ID: {booking._id}
         </p>
 
        
         <button
           onClick={downloadPDF}
-          className="mt-6 bg-purple-600 hover:bg-pink-500 px-6 py-2 rounded-full font-semibold transition"
+          className="mt-6 bg-black text-white px-6 py-2 rounded font-semibold transition"
         >
           Download Ticket PDF
         </button>

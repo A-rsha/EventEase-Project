@@ -52,7 +52,7 @@ function Payments() {
   return (
     <div className="min-h-screen flex items-center justify-center p-6 ">
 
-      <div className="w-full max-w-md bg-fuchsia-100 rounded-md shadow p-6 text-gray-800 space-y-4">
+      <div className="w-full max-w-md bg-white shadow-2xl rounded-md p-6 text-gray-800 space-y-4">
 
         <p className="text-xl font-bold">{booking.event.title}</p>
         <p>📅 {new Date(booking.event.date).toLocaleDateString()} | {booking.event.time}</p>
@@ -74,20 +74,20 @@ function Payments() {
               key={method}
               onClick={() => setSelectedMethod(method)}
               className={`flex items-center justify-between p-3 rounded-md border cursor-pointer ${
-                selectedMethod === method ? "border-purple-600 bg-purple-50" : "border-gray-400 hover:bg-gray-100"
+                selectedMethod === method ? "border-red-600 bg-purple-50" : "border-gray-400 hover:bg-gray-100"
               }`}
             >
               <span>{method}</span>
               <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                selectedMethod === method ? "border-purple-600" : "border-gray-400"
+                selectedMethod === method ? "border-red-600" : "border-gray-400"
               }`}>
-                {selectedMethod === method && <div className="w-2 h-2 bg-purple-600 rounded-full"></div>}
+                {selectedMethod === method && <div className="w-2 h-2 bg-purredple-600 rounded-full"></div>}
               </div>
             </div>
           ))}
 
           <button
-            className="w-full mt-3 py-2 rounded-md bg-purple-600 text-white font-medium hover:bg-purple-500 transition"
+            className="w-full mt-3 py-2 rounded-md bg-black text-white font-medium  transition"
             onClick={handlePayment}
             disabled={loading}
           >

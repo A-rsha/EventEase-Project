@@ -38,11 +38,12 @@ function Events() {
     <div className="p-4 max-w-6xl mx-auto min-h-screen ">
 
       {events.length === 0 ? (
-        <p className="text-white text-center text-lg mt-10">Loading...</p>
+        <p className="text-black text-center text-lg mt-10">Loading...</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
           {events.map((event) => {
+            console.log("IMAGE URL:",event.image)
             const eventDate = new Date(event.date);
             const formattedDate = eventDate.toLocaleDateString("en-IN", {
               day: "numeric",
@@ -54,10 +55,10 @@ function Events() {
             return (
               <div
                 key={event._id}
-                className="bg-fuchsia-700 rounded-md overflow-hidden flex flex-col"
+                className="bg-white  overflow-hidden shadow-2xl rounded-2xl flex flex-col"
               >
               
-                <span className="bg-fuchsia-900 text-white text-xs px-2 py-1 rounded absolute m-2">
+                <span className="bg-black text-white text-xs px-2 py-1 rounded absolute m-2">
                   {event.category}
                 </span>
 
@@ -71,16 +72,16 @@ function Events() {
                 )}
 
                
-                <div className="flex flex-col p-4 grow text-white space-y-2">
+                <div className="flex flex-col p-4 grow text-black space-y-2">
                   <h3 className="text-lg font-semibold">{event.title}</h3>
-                  <p className="text-sm text-gray-200 line-clamp-2">{event.description}</p>
-                  <p className="text-sm text-gray-100">📅 {formattedDate} • {formattedTime}</p>
-                  <p className="text-sm text-gray-100">📍 {event.venue}</p>
+                  <p className="text-sm text-black line-clamp-2">{event.description}</p>
+                  <p className="text-sm text-black">📅 {formattedDate} • {formattedTime}</p>
+                  <p className="text-sm text-black">📍 {event.venue}</p>
                   <p className="text-base font-bold mt-2">₹{event.price}</p>
 
                   <button
                     onClick={() => navigate(`/events/${event._id}`)}
-                    className="mt-auto bg-fuchsia-950 py-2 rounded text-white font-medium  transition-colors"
+                    className="mt-auto bg-black py-2 rounded text-white font-medium  transition-colors"
                   >
                     View Details
                   </button>

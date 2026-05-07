@@ -42,29 +42,29 @@ function Home() {
 
   return (
     <>
-      <section className="pt-28 px-6 pb-60 overflow-x-auto min-h-screen">
+  <section className="pt-24 px-6 pb-16">
 
         <div className="max-w-7xl mx-auto">
 
-          <p className="text-fuchsia-500 bold text-lg mb-4 tracking-wide">
-            Find Your Next Experience
-          </p>
+        <p className="text-black font-sans text-lg mb-3">
+  Find Your Next Experience
+</p>
 
-          <h1 className="max-w-5xl text-6xl sm:text-7xl md:text-8xl lg:text-[110px] font-extrabold leading-[1.05] tracking-tight bg-linear-to-r from-pink-400 to-purple-300 bg-clip-text text-transparent">
-            Discover & Promote <br className="hidden md:block" /> Upcoming Events
-          </h1>
+<h1 className="max-w-4xl text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight">
+  Discover & Promote <br className="hidden md:block" /> Upcoming Events
+</h1>
 
-          <div className="mt-12 bg-fuchsia-950 border border-white/30 rounded-2xl p-5 flex flex-col md:flex-row md:items-center gap-4 w-full">
+<div className="mt-8 bg-white shadow-lg rounded-xl p-4 flex flex-col md:flex-row md:items-center gap-4 w-full">
 
 
             <div className="flex items-center gap-2 flex-1">
-              <FiSearch className="text-white text-lg" />
+              <FiSearch className="text-black text-lg" />
               <input
                 type="text"
                 placeholder="Search Event"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
-                className="bg-transparent outline-none text-white placeholder-white/70 w-full"
+                className="bg-transparent outline-none text-black placeholder-black w-full"
               />
             </div>
 
@@ -72,13 +72,13 @@ function Home() {
 
 
             <div className="flex items-center gap-2 flex-1">
-              <FiMapPin className="text-white text-lg" />
+              <FiMapPin className="text-black text-lg" />
               <input
                 type="text"
                 placeholder="Search Location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="bg-transparent outline-none text-white placeholder-white/70 w-full"
+                className="bg-transparent outline-none text-black placeholder-black w-full"
               />
             </div>
 
@@ -86,15 +86,16 @@ function Home() {
 
 
             <div className="flex items-center gap-2 flex-1">
-              <FiGrid className="text-white text-lg" />
+              <FiGrid className="text-black text-lg" />
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="bg-transparent outline-none text-white w-full"
+                className="bg-transparent outline-none text-black w-full"
               >
                 <option value="" className="text-black">All Categories</option>
 
                 {categories.map((cat, index) => (
+                  
                   <option key={index} value={cat} className="text-black">
                     {cat}
                   </option>
@@ -104,7 +105,7 @@ function Home() {
             </div>
 
             <button
-              className="bg-purple-800 hover:bg-purple-900 text-white p-3 rounded-xl md:rounded-full transition "
+              className="bg-white shadow-2xl hover:bg-red-950 text-black p-3 rounded-xl md:rounded-full transition "
             >
               <FiSearch />
             </button>

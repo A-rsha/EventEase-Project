@@ -48,48 +48,47 @@ function FeatureSection({ searchText, location, category }) {
   }
 
   return (
-    <section className="pt-1 pb-16 px-4 md:px-8">
+    <section className=" pb-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mt-10">
-          Upcoming Events
+        <h1 className="text-3xl md:text-4xl font-bold text-black mt-6">
+          Popular Events🔥
         </h1>
-        <p className="text-gray-200 mb-6">{upcomingEvents.length} Events Found</p>
+        <p className="text-black mb-6">6 Events Found</p>
 
         {upcomingEvents.length === 0 ? (
-          <div className="text-center text-white py-16">
+          <div className="text-center text-blackpy-16">
             <h2 className="text-xl font-semibold mb-2">Loading Events..</h2>
-            <p className="text-gray-300">Try changing your filters.</p>
+            <p className="text-black">Try changing your filters.</p>
           </div>
         ) : (
-          <div className="flex md:grid md:grid-cols-2 lg:flex gap-6 overflow-x-auto md:overflow-visible pb-4">
-            {upcomingEvents.map((event) => {
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {upcomingEvents.slice(0,6).map((event) => {
               const eventDate = new Date(event.date);
 
               return (
                 <div
                   key={event._id}
-                  className="group min-w-70 md:min-w-0 lg:min-w-[320px] w-full bg-fuchsia-800 rounded-2xl overflow-hidden shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col"
+                  className="group min-w-70 md:min-w-0 lg:min-w-[320px] w-full bg-white shadow-2xl rounded-2xl  flex flex-col"
                 >
                   <div className="relative h-52 overflow-hidden">
                     {event.image && (
-                      <img
-                        src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
+                  <img src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
                         alt={event.title}
                         className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
                       />
                     )}
 
-                    <span className="absolute top-4 left-4 bg-purple-600 text-white text-xs px-3 py-1 rounded-full">
+                    <span className="absolute top-4 left-4 bg-black text-white text-xs px-3 py-1 rounded-full">
                       {event.category}
                     </span>
                   </div>
 
                   <div className="p-5 flex flex-col grow">
-                    <h3 className="text-lg md:text-xl font-semibold mb-3 text-white">
+                    <h3 className="text-lg md:text-xl font-semibold mb-3 text-black">
                       {event.title}
                     </h3>
 
-                    <div className="text-sm text-white mb-4 space-y-2">
+                    <div className="text-sm text-black mb-4 space-y-2">
                       <p>
                         📅 {eventDate.toLocaleDateString("en-IN")} • {formatTime(event.time)}
                       </p>
@@ -99,11 +98,11 @@ function FeatureSection({ searchText, location, category }) {
                     <div className="mt-auto flex items-center justify-between gap-3">
                       <button
                         onClick={() => navigate(`/events/${event._id}`)}
-                        className="w-full py-2.5 rounded-xl font-semibold bg-fuchsia-950 text-white transition duration-300"
+                        className="w-full py-2.5 rounded font-semibold bg-black text-white transition duration-300"
                       >
                         Get Ticket
                       </button>
-                      <span className="text-white font-semibold whitespace-nowrap">
+                      <span className="text-black font-semibold whitespace-nowrap">
                         ₹{event.price}
                       </span>
                     </div>
