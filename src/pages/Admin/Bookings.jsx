@@ -50,7 +50,7 @@ function Bookings() {
 
         <div className="hidden md:block overflow-x-auto">
           <table className="min-w-full text-sm text-left text-gray-600">
-            <thead className="bg-fuchsia-950 text-white uppercase text-xs">
+            <thead className="bg-black text-white uppercase text-xs">
               <tr>
                 <th className="px-6 py-3">User</th>
                 <th className="px-6 py-3">Email</th>

@@ -47,8 +47,8 @@ function CreateEvent() {
   };
 
   return (
-    <div className="bg-fuchsia-200 min-h-screen py-6 px-4 md:px-8">
-      <div className="max-w-3xl mx-auto bg-purple-100 rounded-md p-6 md:p-8">
+    <div className="bg-black min-h-screen py-6 px-4 md:px-8">
+      <div className="max-w-3xl mx-auto bg-white rounded-md p-6 md:p-8">
         <h2 className="text-2xl font-semibold mb-6 text-gray-800 text-center md:text-left">
           Create New Event
         </h2>
@@ -152,7 +152,7 @@ function CreateEvent() {
 
           <button
             type="submit"
-            className="w-full bg-purple-700 text-white py-2 rounded-md hover:bg-purple-600 transition-colors font-medium"
+            className="w-full bg-black text-white py-2 rounded-md hover:bg-purple-600 transition-colors font-medium"
           >
             Create Event
           </button>

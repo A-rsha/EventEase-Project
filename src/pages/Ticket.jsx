@@ -5,8 +5,16 @@ import API from "../services/axios";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
+import {
+  FiCalendar,
+  FiMapPin,
+  FiCreditCard,
+  FiDownload,
+} from "react-icons/fi";
+
 function Ticket() {
   const { id } = useParams();
+
   const [booking, setBooking] = useState(null);
   const [timeLeft, setTimeLeft] = useState(null);
 
@@ -40,110 +48,258 @@ function Ticket() {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
       });
     }, 1000);
 
     return () => clearInterval(interval);
   }, [booking]);
 
- const downloadPDF = async () => {
-  const element = document.createElement("div");
+  const downloadPDF = async () => {
+    const element = document.getElementById("ticket-card");
 
-  element.style.padding = "20px";
-  element.style.background = "#ffffff";
-  element.style.color = "#000000";
-  element.style.width = "400px";
-  element.style.fontFamily = "Arial";
+    const canvas = await html2canvas(element);
 
-  element.innerHTML = `
-    <h2 style="text-align:center;">Event Ticket</h2>
-    <p><strong>Event:</strong> ${booking.event.title}</p>
-    <p><strong>Date:</strong> ${new Date(
-      booking.event.date
-    ).toLocaleDateString()}</p>
-    <p><strong>Venue:</strong> ${booking.event.venue}</p>
-    <p><strong>Seats:</strong> ${booking.numberOfSeats}</p>
-    <p><strong>Amount Paid:</strong> ₹${booking.totalAmount}</p>
-    <p><strong>Booking ID:</strong> ${booking._id}</p>
-  `;
+    const imgData = canvas.toDataURL("image/png");
 
-  document.body.appendChild(element);
+    const pdf = new jsPDF("p", "mm", "a4");
 
-  const canvas = await html2canvas(element);
-  const imgData = canvas.toDataURL("image/png");
+    const width = 190;
+    const height =
+      (canvas.height * width) / canvas.width;
 
-  const pdf = new jsPDF();
-  pdf.addImage(imgData, "PNG", 10, 10, 180, 0);
-  pdf.save("ticket.pdf");
+    pdf.addImage(imgData, "PNG", 10, 10, width, height);
 
-  document.body.removeChild(element);
-};
+    pdf.save("EventEase-Ticket.pdf");
+  };
 
-  if (!booking)
-    return <p className="text-blakc text-center mt-10">Loading...</p>;
+  if (!booking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#f6f6f6]">
+        <p className="text-gray-500 text-sm">
+          Loading Ticket...
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 text-black">
+    <div className="min-h-screen bg-[#f6f6f6] px-4 py-10 flex items-center justify-center">
 
       <div
-        id="ticket-content"
-        className="bg-white backdrop-blur-lg p-8 rounded-3xl w-full max-w-md text-center space-y-4"
+        id="ticket-card"
+        className="
+        w-full
+        max-w-sm
+        bg-white
+        rounded-[32px]
+        border
+        border-gray-200
+        shadow-sm
+        overflow-hidden
+        "
       >
 
-        <h2 className="text-2xl font-bold text-pink-400">
-          🎟 Event Ticket
-        </h2>
+        {/* TOP */}
+        <div className="px-6 pt-6 pb-5 border-b border-dashed border-gray-300">
 
-        <p className="text-lg font-semibold">
-          {booking.event.title}
-        </p>
+          <div className="flex items-start justify-between">
 
-        <p>
-          📅 {new Date(booking.event.date).toLocaleDateString()}
-        </p>
+            <div>
 
-        <p>📍 {booking.event.venue}</p>
+              <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-2">
+                Event Ticket
+              </p>
 
-        <p>🎟 Seats: {booking.numberOfSeats}</p>
+              <h1 className="text-2xl font-bold text-black leading-tight">
+                {booking.event.title}
+              </h1>
 
-        <p>💰 Paid: ₹{booking.totalAmount}</p>
+            </div>
 
-        {timeLeft ? (
-          <div className="flex justify-center gap-4 mt-4">
-            {["days", "hours", "minutes", "seconds"].map((unit) => (
-              <div
-                key={unit}
-                className="bg-white p-3 rounded-xl text-center w-16"
-              >
-                <p className="text-lg font-bold text-black">
-                  {timeLeft[unit]}
-                </p>
-                <p className="text-xs capitalize">{unit}</p>
-              </div>
-            ))}
+            <div className="w-12 h-12 rounded-2xl bg-black text-white flex items-center justify-center text-lg font-bold">
+              🎟
+            </div>
+
           </div>
-        ) : (
-          <p className="mt-4 text-red-400 font-semibold">
-            🎉 Event Started
-          </p>
-        )}
 
-       
+          <div className="mt-6 space-y-4">
 
-        <p className="text-sm text-black mt-2">
-          Booking ID: {booking._id}
-        </p>
+            <div className="flex items-center gap-3 text-sm text-gray-600">
 
-       
-        <button
-          onClick={downloadPDF}
-          className="mt-6 bg-black text-white px-6 py-2 rounded font-semibold transition"
-        >
-          Download Ticket PDF
-        </button>
+              <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">
+                <FiCalendar />
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-400">
+                  Event Date
+                </p>
+
+                <p className="font-medium text-black">
+                  {new Date(
+                    booking.event.date
+                  ).toLocaleDateString()}
+                </p>
+              </div>
+
+            </div>
+
+            <div className="flex items-center gap-3 text-sm text-gray-600">
+
+              <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">
+                <FiMapPin />
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-400">
+                  Venue
+                </p>
+
+                <p className="font-medium text-black">
+                  {booking.event.venue}
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* CENTER */}
+        <div className="px-6 py-5">
+
+          <div className="grid grid-cols-2 gap-4">
+
+            <div className="bg-[#f8f8f8] rounded-2xl p-4">
+
+              <p className="text-xs text-gray-400 mb-1">
+                Seats
+              </p>
+
+              <h3 className="text-xl font-bold text-black">
+                {booking.numberOfSeats}
+              </h3>
+
+            </div>
+
+            <div className="bg-[#f8f8f8] rounded-2xl p-4">
+
+              <p className="text-xs text-gray-400 mb-1">
+                Amount Paid
+              </p>
+
+              <h3 className="text-xl font-bold text-black">
+                ₹{booking.totalAmount}
+              </h3>
+
+            </div>
+
+          </div>
+
+          {/* COUNTDOWN */}
+          {timeLeft ? (
+            <div className="mt-6">
+
+              <p className="text-xs text-gray-400 uppercase tracking-wider mb-3">
+                Event Starts In
+              </p>
+
+              <div className="grid grid-cols-3 gap-3">
+
+                <div className="bg-black text-white rounded-2xl py-4 text-center">
+                  <h3 className="text-xl font-bold">
+                    {timeLeft.days}
+                  </h3>
+                  <p className="text-xs text-gray-300 mt-1">
+                    Days
+                  </p>
+                </div>
+
+                <div className="bg-black text-white rounded-2xl py-4 text-center">
+                  <h3 className="text-xl font-bold">
+                    {timeLeft.hours}
+                  </h3>
+                  <p className="text-xs text-gray-300 mt-1">
+                    Hours
+                  </p>
+                </div>
+
+                <div className="bg-black text-white rounded-2xl py-4 text-center">
+                  <h3 className="text-xl font-bold">
+                    {timeLeft.minutes}
+                  </h3>
+                  <p className="text-xs text-gray-300 mt-1">
+                    Minutes
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+          ) : (
+            <div className="mt-6 bg-green-50 border border-green-200 text-green-700 rounded-2xl py-4 text-center text-sm font-semibold">
+              Event Started
+            </div>
+          )}
+
+        </div>
+
+        {/* BOTTOM */}
+        <div className="px-6 pb-6 pt-2 border-t border-dashed border-gray-300">
+
+          <div className="flex items-center justify-between mb-5">
+
+            <div>
+
+              <p className="text-xs text-gray-400 mb-1">
+                Booking ID
+              </p>
+
+              <p className="text-sm font-semibold text-black">
+                #{booking._id.slice(0, 10)}
+              </p>
+
+            </div>
+
+            <div className="flex items-center gap-2 text-green-600 text-sm font-semibold">
+
+              <FiCreditCard />
+
+              Paid
+
+            </div>
+
+          </div>
+
+          <button
+            onClick={downloadPDF}
+            className="
+            w-full
+            bg-black
+            hover:bg-gray-900
+            text-white
+            py-3
+            rounded-2xl
+            font-semibold
+            transition
+            flex
+            items-center
+            justify-center
+            gap-2
+            "
+          >
+
+            <FiDownload />
+
+            Download Ticket
+
+          </button>
+
+        </div>
 
       </div>
+
     </div>
   );
 }

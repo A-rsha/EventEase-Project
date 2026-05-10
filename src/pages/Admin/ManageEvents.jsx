@@ -60,7 +60,7 @@ function ManageEvents() {
             onClick={() => setSelectedCategory(cat)}
             className={`px-3 py-1 rounded-md border ${
               selectedCategory === cat
-                ? "bg-purple-500 text-white"
+                ? "bg-black-500 text-black"
                 : "bg-white text-gray-800"
             }`}
           >

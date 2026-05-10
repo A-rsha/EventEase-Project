@@ -1,20 +1,28 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import AdminSidebar from '../components/AdminSidebar'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import AdminSidebar from "../components/AdminSidebar";
+
 function DashboardLayout() {
   return (
-    <div className='flex flex-col md:flex-row min-h-screen bg-fuchsia-200'>
-       
-        <div className='w-full md:w-64 bg-pink-100 shadow-md'>
-           <AdminSidebar/>
-        </div>
-             
-             <div className='flex-1 p-8'>
-                <Outlet/>
-             </div>
+    <div className="min-h-screen bg-[#f5f5f5] flex">
 
-        </div>
-  )
+      {/* SIDEBAR */}
+      <div className="hidden md:block w-72 fixed left-0 top-0 h-screen">
+        <AdminSidebar />
+      </div>
+
+      {/* MOBILE SIDEBAR */}
+      <div className="md:hidden">
+        <AdminSidebar />
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="flex-1 md:ml-72 p-4 md:p-8 overflow-x-hidden">
+        <Outlet />
+      </div>
+
+    </div>
+  );
 }
 
-export default DashboardLayout
+export default DashboardLayout;
