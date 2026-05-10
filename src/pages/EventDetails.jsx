@@ -50,7 +50,7 @@ function EventDetails() {
           {event.image && (
             <div className="md:w-1/2 h-64 md:h-auto">
               <img
-                src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
+src={event.image}
                 alt={event.title}
                 className="w-full h-full object-cover"
               />

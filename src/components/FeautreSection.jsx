@@ -18,25 +18,24 @@ function FeatureSection({ searchText, location, category }) {
     fetchEvents();
   }, []);
 
-  const now = new Date();
+const upcomingEvents = events.filter((event) => {
 
- 
-  const upcomingEvents = events.filter((event) => {
-    const eventDate = new Date(event.date);
+  if (
+    searchText &&
+    !event.title.toLowerCase().includes(searchText.toLowerCase())
+  )
+    return false;
 
-    if (eventDate < now) return false;
+  if (
+    location &&
+    !event.venue.toLowerCase().includes(location.toLowerCase())
+  )
+    return false;
 
-    if (searchText && !event.title.toLowerCase().includes(searchText.toLowerCase()))
-      return false;
+  if (category && event.category !== category) return false;
 
-    if (location && !event.venue.toLowerCase().includes(location.toLowerCase()))
-      return false;
-
-    if (category && event.category !== category) return false;
-
-    return true;
-  });
-  
+  return true;
+});
 
   function formatTime(time) {
     if (!time) return "";
@@ -72,7 +71,7 @@ function FeatureSection({ searchText, location, category }) {
                 >
                   <div className="relative h-52 overflow-hidden">
                     {event.image && (
-                  <img src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
+                  <img src={event.image}
                         alt={event.title}
                         className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
                       />

@@ -14,11 +14,20 @@ function Navbar() {
   const [payments, setPayments] = useState([]);
   const [activeTab, setActiveTab] = useState("bookings");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userRes = await API.get("/auth/profile");
-        setUser(userRes.data);
+ useEffect(() => {
+
+  const fetchData = async () => {
+
+    try {
+
+      const userRes = await API.get("/auth/profile");
+
+      setUser(userRes.data);
+
+      const role = userRes.data.role;
+
+      // Only for normal users
+      if (role === "user") {
 
         const bookingRes = await API.get("/bookings/myBookings");
         setBookings(bookingRes.data.data || []);
@@ -26,17 +35,23 @@ function Navbar() {
         const paymentRes = await API.get("/payments/getMyPayments");
         setPayments(paymentRes.data.data || []);
 
-        const eventRes = await API.get('/events/getEvents')
-        setEvents(eventRes.data.data || []);
-
-
-      } catch (error) {
-        console.log("Profile sidebar error:", error);
       }
-    };
 
-    fetchData();
-  }, []);
+      // Events for everyone
+      const eventRes = await API.get("/events/getEvents");
+
+      setEvents(eventRes.data.data || []);
+
+    } catch (error) {
+
+      console.log("Profile sidebar error:", error);
+
+    }
+  };
+
+  fetchData();
+
+}, []);
 
   const handleCancelBooking =async(id)=>{
     try {

@@ -79,7 +79,7 @@ function ManageEvents() {
 
               {event.image && (
                 <img
-                  src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
+               src={event.image}
                   alt={event.title}
                   className="w-full h-40 object-cover rounded-md mb-2"
                 />

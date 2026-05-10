@@ -6,24 +6,22 @@ function Events() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const res = await API.get("/events/getEvents");
-        const now = new Date();
+ useEffect(() => {
+  const fetchEvents = async () => {
+    try {
+      const res = await API.get("/events/getEvents");
 
-        const upcoming = (res.data.data || []).filter(
-          (event) => new Date(event.date) >= now
-        );
+      console.log("EVENTS:", res.data.data);
 
-        setEvents(upcoming);
-      } catch (error) {
-        console.error("Error fetching events", error);
-      }
-    };
+      setEvents(res.data.data || []);
 
-    fetchEvents();
-  }, []);
+    } catch (error) {
+      console.error("Error fetching events", error);
+    }
+  };
+
+  fetchEvents();
+}, []);
 
   const formatTime = (timeString) => {
     if (!timeString) return "";
@@ -65,7 +63,7 @@ function Events() {
                
                 {event.image && (
                   <img
-                    src={`https://eventease-backend-3-py1w.onrender.com/${event.image}`}
+     src={event.image}
                     alt={event.title}
                     className="w-full h-40 object-cover"
                   />
